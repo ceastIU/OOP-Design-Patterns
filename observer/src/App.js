@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect } from 'react';
-
+import Timer from './components/Timer';
+import './App.css';
 // Create a Subject class that will manage observers.
 class Subject {
   constructor() {
@@ -24,7 +25,7 @@ class Subject {
 class MyComponent extends Component {
   constructor() {
     super();
-    this.state = { data: 'Initial Data' };
+    this.state = { data: "div-2" };
   }
 
   update(data) {
@@ -43,7 +44,7 @@ class MyComponent extends Component {
   }
 
   render() {
-    return <div>{this.state.data}</div>;
+    return <div class={this.state.data}>{this.state.data}</div>;
   }
 }
 
@@ -57,31 +58,7 @@ function App() {
     subject.notify(data);
   };
 
-  const [timer, setTimer] = useState(60); // Initial timer value (in seconds)
 
-  // Function to start the timer
-  const startTimer = () => {
-    // Reduce the timer by 1 every second
-    const intervalId = setInterval(() => {
-      setTimer((prevTimer) => {
-        handleSubjectUpdate(prevTimer); // Pass the updated timer value to the function
-        return prevTimer - 1; // Return the updated timer value
-      });
-    }, 1000);
-
-    // Return a cleanup function to stop the timer when the component unmounts
-    return () => clearInterval(intervalId);
-  };
-
-  // Use the useEffect hook to start the timer when the component mounts
-  useEffect(() => {
-    const cleanup = startTimer();
-
-    // Add cleanup logic for when the component unmounts
-    return () => {
-      cleanup();
-    };
-  }, []);
   // useEffect(() => {
   //   // Simulate a subject update (e.g., due to an API call or user interaction).
   //   setTimeout(handleSubjectUpdate("Changed"), 2000);
@@ -89,12 +66,11 @@ function App() {
 
   return (
     <div>
+      <Timer />
       <MyComponent />
       <MyComponent />
       <MyComponent />
-      <button onClick={() => handleSubjectUpdate("I was clicked")}>Change</button>
-      <h2>Countdown Timer:</h2>
-      <p>{timer} seconds</p>
+      <button onClick={() => handleSubjectUpdate("div-1")}>Change</button>
     </div>
   );
 }
