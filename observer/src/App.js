@@ -18,19 +18,24 @@ class Subject {
   notify(data) {
     this.observers.forEach(observer => observer.update(data));
   }
+
+  triggerNotify(id) {
+    this.notify(id)
+  }
 }
 
 
 // Create a simple component that will act as an observer.
 class MyComponent extends Component {
-  constructor() {
+  constructor({ handleSubjectUpdate, data }) {
     super();
-    this.state = { data: "div-2" };
+    this.handleSubjectUpdate = handleSubjectUpdate
+    this.state = { data: data, change: data };
   }
 
   update(data) {
     // Handle updates here, e.g., fetch new data or re-render the component.
-    this.setState({ data: `Updated Data: ${data}` });
+    this.setState({ data: data });
   }
 
   componentDidMount() {
@@ -44,7 +49,7 @@ class MyComponent extends Component {
   }
 
   render() {
-    return <div class={this.state.data}>{this.state.data}</div>;
+    return <button class={this.state.data} onClick={() => this.handleSubjectUpdate(this.state.change)}>{this.state.data}</button>;
   }
 }
 
@@ -67,9 +72,9 @@ function App() {
   return (
     <div>
       <Timer />
-      <MyComponent />
-      <MyComponent />
-      <MyComponent />
+      <MyComponent handleSubjectUpdate={handleSubjectUpdate} data={"div-2"}/>
+      <MyComponent handleSubjectUpdate={handleSubjectUpdate} data={"div-1"}/>
+      <MyComponent handleSubjectUpdate={handleSubjectUpdate} data={"div"}/>
       <button onClick={() => handleSubjectUpdate("div-1")}>Change</button>
     </div>
   );
