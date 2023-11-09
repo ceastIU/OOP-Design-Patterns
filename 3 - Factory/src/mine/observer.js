@@ -24,3 +24,5 @@ class Observer {
         this.notifyObservsers();
     }
 }
+
+export default Observer;
