@@ -83,6 +83,7 @@ class Bomb extends Cell {
     return this.size;
   }
 }
+// more stuff so I can make a change and a commit today
 
 // class CondimentDecorator extends Beverage {
 //     constructor(beverage) {
@@ -143,7 +144,7 @@ class Minesweeper {
     this.cell = new Cell(this.bombController);
     // this.bombController.bombTriggered()
     this.cell.trigger();
-    this.bomb = new Bomb();
+    this.bomb = new Bomb(this.cell);
     this.bomb.getDescription();
   }
 }
