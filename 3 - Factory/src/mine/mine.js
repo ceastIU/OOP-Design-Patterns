@@ -39,7 +39,7 @@ class Cell {
     this.flag = false;
     this.bomb = false;
     this.empty = false;
-    this.description = "Bomb";
+    this.description = "Cell";
     this.bombController = bombController;
     this.bombController.registerObserver(this);
   }
@@ -62,8 +62,8 @@ class Cell {
 }
 
 class Bomb extends Cell {
-  constructor() {
-    super();
+  constructor(bombController) {
+    super(bombController);
     this.description = "bomb";
   }
 
@@ -142,10 +142,9 @@ class Minesweeper {
   constructor() {
     this.bombController = new Observer();
     this.cell = new Cell(this.bombController);
-    // this.bombController.bombTriggered()
-    this.cell.trigger();
-    this.bomb = new Bomb(this.cell);
+    this.bomb = new Bomb(this.bombController);
     this.bomb.getDescription();
+    this.bombController.bombTriggered();
   }
 }
 
