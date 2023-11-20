@@ -1,3 +1,5 @@
+// adding a long comment so I can make a new commit
+
 class Animal {
   constructor(color = "yellow", energy = 100) {
     this.color = color;
